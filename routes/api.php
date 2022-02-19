@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('convert_currency',  ConvertCurrency::class);
+Route::post('convert_currency',  ConvertCurrencyController::class);

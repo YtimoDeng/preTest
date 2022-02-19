@@ -7,7 +7,7 @@ use App\Http\Requests\ConvertCurrencyRequest;
 use App\Services\ConvertCurrencyService;
 use Illuminate\Http\Request;
 
-class ConvertCurrency extends Controller
+class ConvertCurrencyController extends Controller
 {
     private $convertCurrencyService;
 
@@ -24,7 +24,7 @@ class ConvertCurrency extends Controller
      */
     public function __invoke(ConvertCurrencyRequest $request)
     {
-        $convertedResult = $this->convertCurrencyService(
+        $convertedResult = $this->convertCurrencyService->convertCurrency(
             $request->input('original_currency'),
             $request->input('converted_currency'),
             $request->input('amount'),

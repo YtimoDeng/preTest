@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use Exception;
+use App\Exceptions\CurrencyNotSupport;
 
 class ConvertCurrencyService
 {
@@ -19,13 +19,13 @@ class ConvertCurrencyService
         $currencyRule = optional($rules['currencies'])[$originCurrency];
 
         if (!$currencyRule) {
-            throw new Exception("Original currency not support");
+            throw new CurrencyNotSupport("Original currency not support");
         }
 
         $rate = optional($currencyRule)[$targetCurrency];
 
         if (!$rate) {
-            throw new Exception("Target currency not support");
+            throw new CurrencyNotSupport("Target currency not support");
         }
 
         $convertedAmount = $amount * $rate;
