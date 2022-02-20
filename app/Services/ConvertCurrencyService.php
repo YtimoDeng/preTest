@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Exceptions\CurrencyNotSupport;
+use Exception;
 
 class ConvertCurrencyService
 {
@@ -16,16 +17,21 @@ class ConvertCurrencyService
     public function convertCurrency(string $originCurrency, string $targetCurrency, float $amount): float
     {
         $rules = json_decode(env('CURRENCY_RULES'), true);
+
+        if (!$rules) {
+            throw new Exception('rules not set up');
+        }
+
         $currencyRule = optional($rules['currencies'])[$originCurrency];
 
         if (!$currencyRule) {
-            throw new CurrencyNotSupport("Original currency not support");
+            throw new Exception("Original currency not support");
         }
 
         $rate = optional($currencyRule)[$targetCurrency];
 
         if (!$rate) {
-            throw new CurrencyNotSupport("Target currency not support");
+            throw new Exception("Target currency not support");
         }
 
         $convertedAmount = $amount * $rate;
