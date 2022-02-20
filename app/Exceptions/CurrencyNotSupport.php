@@ -31,6 +31,11 @@ class CurrencyNotSupport extends Exception
      */
     public function render($request)
     {
-        return response($this->message, 500);
+        return response()->json(
+            [
+                'error' => $this->message,
+            ],
+            500
+        );
     }
 }

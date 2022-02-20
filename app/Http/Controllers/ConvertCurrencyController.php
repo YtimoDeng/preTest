@@ -30,6 +30,8 @@ class ConvertCurrencyController extends Controller
             $request->input('amount'),
         );
 
-        return response(CurrencyFormatter::currencyFormat($convertedResult, 2));
+        return response()->json([
+            'convertedResult' => CurrencyFormatter::currencyFormat($convertedResult, 2),
+        ]);
     }
 }
